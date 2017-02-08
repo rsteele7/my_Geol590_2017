@@ -8,6 +8,7 @@ while (dinvar != 1) {
     locations <- c(locations,dinvar)
   }
 }
+
 decision <- sample(locations, 1) #randomly samples one dinner location
 
 print (c("You should go to", decision), quote=FALSE) #gives user final decision
