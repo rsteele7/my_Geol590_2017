@@ -11,3 +11,5 @@ while (dinvar != 1) {
 decision <- sample(locations, 1) #randomly samples one dinner location
 
 print (c("You should go to", decision), quote=FALSE) #gives user final decision
+
+##########Note; can also be used to decide what to make for dinner ########################
