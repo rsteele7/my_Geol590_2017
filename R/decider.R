@@ -1,6 +1,8 @@
 #####Decider which tells you where to go for dinner######
+
 dinvar <- 0 #variable that holds user input, also used to check code
 locations <- c() #vector that holds all locations
+
 #loops which allow the user to input dinner locations as wanted
 while (dinvar != 1) {
   dinvar <- readline("Enter dinner location option or 1 to exit. ")
