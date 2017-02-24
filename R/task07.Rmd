@@ -1,0 +1,49 @@
+---
+title: "R Notebook"
+output: md_document
+---
+
+```{r}
+###task 7 nycflights code###
+#loading appropriate libraries
+library(nycflights13)
+library(tidyverse)
+#plot to visualise outlier locations
+nycflights13::weather %>%
+  ggplot(aes(hour, wind_speed)) +
+    geom_point()
+#remove outlier > 1,000 units of wind speed, summarise with median wind speed
+airport_wind <- nycflights13::weather %>%
+  filter(wind_speed<1000) %>%
+  group_by(origin, wind_dir) %>%
+  summarise(med_wind_spd = median(wind_speed))
+#create and plot tables of median wind speed/direction for every airport
+airpot_wind_tbls <- airport_wind %>%
+  group_by(origin) %>%
+  do(airport_wind=data.frame(.)) %>%
+  select(airport_wind) %>%
+  lapply(function(x) {(x)}) %>%
+  print()
+#make graphs of median wind speed/direction for every airport
+airport_wind %>%
+  ggplot(aes(x=wind_dir, y=med_wind_spd)) +
+    geom_point() +
+    facet_wrap(~origin)
+```
+```{r}
+###task 7 babynames code###
+library(babynames)
+#collect 10 most common male and female baby names in 2014 
+common.2014 <- babynames::babynames %>%
+  filter(year==2014) %>%
+  group_by(sex) %>%
+  top_n(10, n) %>%
+  .[[3]]
+#select frequencies throughout the years of the given baby names
+babynames::babynames %>%
+  filter(name %in% common.2014) %>%
+  ggplot(aes(x=year, y=prop)) +
+    geom_col() +
+    facet_wrap(~name)
+```
+
