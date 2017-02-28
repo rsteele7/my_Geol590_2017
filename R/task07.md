@@ -1,7 +1,8 @@
 NYC Flights Code
 ================
 
-    ###task 7 nycflights code###
+    #---------------------------------#
+    ######task 7 nycflights code#######
     #loading appropriate libraries
     library(nycflights13)
     library(tidyverse)
@@ -18,10 +19,9 @@ NYC Flights Code
     ## filter(): dplyr, stats
     ## lag():    dplyr, stats
 
-    mf <- nycflights13::weather
-
-
-    #plot to visualise outliers
+    #Prepare weather data for placement in tables, graph
+    #-------------------------------------------------------------------------------#
+    #plot wind speed to visualise outliers
     nycflights13::weather %>%
       ggplot(aes(hour, wind_speed)) +
         geom_point()
@@ -30,7 +30,8 @@ NYC Flights Code
 
 ![](task07_files/figure-markdown_strict/unnamed-chunk-1-1.png)
 
-    #remove outlier > 1,000 units of wind speed and values in wind_dir = NA, summarise with median wind speed for each wind direction at each airport
+    #remove outlier > 1,000 units of wind speed and values in wind_dir = NA
+    #summarise with median wind speed for each wind direction at each airport
     airport_wind <- nycflights13::weather %>%
       filter(wind_speed<1000, !is.na(wind_dir)) %>%
       group_by(wind_dir,origin) %>%
@@ -38,7 +39,9 @@ NYC Flights Code
       .[order(.$origin),]
 
 
-    #create and plot separate tables of median wind speed/direction for every airport
+    #Put weather data in tables and graphs
+    #---------------------------------------------------------------------------------#
+    #create separate tables of median wind speed/direction for every airport
     airport_wind_tbls <- airport_wind %>%
       group_by(origin) %>%
       do(airport_wind=data.frame(.)) %>%
@@ -177,6 +180,8 @@ NYC Flights Code
 
 ![](task07_files/figure-markdown_strict/unnamed-chunk-1-2.png)
 
+    #JFK distance data
+    #-----------------------------------------------------------------------------------------------------------#
     #Make table with airline name and median distance flown from JFK; arrange in order of decreasing mean flight distance
     jfk_flight_distance <- nycflights13::flights %>%
       left_join(airlines) %>%
@@ -202,6 +207,8 @@ NYC Flights Code
     ## 9     United Air Lines Inc.     2586 2535.5922
     ## 10   Hawaiian Airlines Inc.     4983 4983.0000
 
+    #EWR flight number data
+    #---------------------------------------------------------------------------------------------------------#
     #Make wide data frame displaying number of flights leaving Newark airport each month from each airline
     leave_ewr <- nycflights13::flights %>%
       filter(origin == "EWR") %>%
@@ -230,10 +237,13 @@ NYC Flights Code
 Babynames Code
 ==============
 
-    ###task 7 babynames code###
+    #--------------------------------#
+    ######task 7 babynames code#######
     library(babynames)
 
 
+    #Collecting and plotting most common baby names in 2014 across the years
+    #------------------------------------------------------------------------#
     #collect 10 most common male and female baby names in 2014 
     common.2014 <- babynames::babynames %>%
       filter(year==2014) %>%
@@ -277,6 +287,8 @@ Babynames Code
 
 ![](task07_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
+    #common girl data
+    #------------------------------------------------------------#
     #26th - 29th most common girls in 1896, 1942, 2016
     common_girls <- babynames::babynames %>%
       filter(year==1896 | year==1942 | year==2016, sex=="F") %>%
