@@ -3,6 +3,7 @@ NYC Flights Code
 
     #---------------------------------#
     ######task 7 nycflights code#######
+    #---------------------------------#
     #loading appropriate libraries
     library(nycflights13)
     library(tidyverse)
@@ -19,7 +20,7 @@ NYC Flights Code
     ## filter(): dplyr, stats
     ## lag():    dplyr, stats
 
-    #Prepare weather data for placement in tables, graph
+    #-------------Prepare weather data for placement in tables, graph---------------#
     #-------------------------------------------------------------------------------#
     #plot wind speed to visualise outliers
     nycflights13::weather %>%
@@ -36,10 +37,29 @@ NYC Flights Code
       filter(wind_speed<1000, !is.na(wind_dir)) %>%
       group_by(wind_dir,origin) %>%
       summarise(med_wind_spd = median(wind_speed)) %>%
-      .[order(.$origin),]
+      .[order(.$origin), ]
 
 
-    #Put weather data in tables and graphs
+    #Determine directions with highest median speeds at each airport
+    print(top_n(group_by(airport_wind, origin), 1, med_wind_spd))
+
+    ## Source: local data frame [10 x 3]
+    ## Groups: origin [3]
+    ## 
+    ##    wind_dir origin med_wind_spd
+    ##       <dbl>  <chr>        <dbl>
+    ## 1       290    EWR     12.65858
+    ## 2       300    EWR     12.65858
+    ## 3       320    EWR     12.65858
+    ## 4       330    EWR     12.65858
+    ## 5       290    JFK     14.96014
+    ## 6       300    JFK     14.96014
+    ## 7       310    JFK     14.96014
+    ## 8       330    JFK     14.96014
+    ## 9       270    LGA     13.80936
+    ## 10      290    LGA     13.80936
+
+    #---------------------Put weather data in tables and graphs-----------------------#
     #---------------------------------------------------------------------------------#
     #create separate tables of median wind speed/direction for every airport
     airport_wind_tbls <- airport_wind %>%
@@ -180,7 +200,7 @@ NYC Flights Code
 
 ![](task07_files/figure-markdown_strict/unnamed-chunk-1-2.png)
 
-    #JFK distance data
+    #---------------------------------------JFK distance data---------------------------------------------------#
     #-----------------------------------------------------------------------------------------------------------#
     #Make table with airline name and median distance flown from JFK; arrange in order of decreasing mean flight distance
     jfk_flight_distance <- nycflights13::flights %>%
@@ -207,7 +227,7 @@ NYC Flights Code
     ## 9     United Air Lines Inc.     2586 2535.5922
     ## 10   Hawaiian Airlines Inc.     4983 4983.0000
 
-    #EWR flight number data
+    #--------------------------------------EWR flight number data---------------------------------------------#
     #---------------------------------------------------------------------------------------------------------#
     #Make wide data frame displaying number of flights leaving Newark airport each month from each airline
     leave_ewr <- nycflights13::flights %>%
@@ -239,55 +259,32 @@ Babynames Code
 
     #--------------------------------#
     ######task 7 babynames code#######
+    #--------------------------------#
     library(babynames)
+    library(tidyverse)
 
 
-    #Collecting and plotting most common baby names in 2014 across the years
-    #------------------------------------------------------------------------#
+
+    #-Collecting and plotting most common baby names in 2014 across the years-#
+    #-------------------------------------------------------------------------#
     #collect 10 most common male and female baby names in 2014 
-    common.2014 <- babynames::babynames %>%
+    common_2014 <- babynames::babynames %>%
       filter(year==2014) %>%
       group_by(sex) %>%
-      top_n(10, n) %>%
-      print()
+      top_n(10, prop)
 
-    ## Source: local data frame [20 x 5]
-    ## Groups: sex [2]
-    ## 
-    ##     year   sex      name     n        prop
-    ##    <dbl> <chr>     <chr> <int>       <dbl>
-    ## 1   2014     F      Emma 20799 0.010729242
-    ## 2   2014     F    Olivia 19674 0.010148906
-    ## 3   2014     F    Sophia 18490 0.009538136
-    ## 4   2014     F  Isabella 16950 0.008743721
-    ## 5   2014     F       Ava 15586 0.008040096
-    ## 6   2014     F       Mia 13442 0.006934106
-    ## 7   2014     F     Emily 12562 0.006480155
-    ## 8   2014     F   Abigail 11985 0.006182507
-    ## 9   2014     F   Madison 10247 0.005285953
-    ## 10  2014     F Charlotte 10048 0.005183298
-    ## 11  2014     M      Noah 19144 0.009431494
-    ## 12  2014     M      Liam 18342 0.009036381
-    ## 13  2014     M     Mason 17092 0.008420555
-    ## 14  2014     M     Jacob 16712 0.008233344
-    ## 15  2014     M   William 16687 0.008221027
-    ## 16  2014     M     Ethan 15619 0.007694866
-    ## 17  2014     M   Michael 15323 0.007549038
-    ## 18  2014     M Alexander 15293 0.007534258
-    ## 19  2014     M     James 14301 0.007045539
-    ## 20  2014     M    Daniel 13829 0.006813003
 
     #select frequencies throughout the years of the given baby names, plot
     keys <- c("name", "sex")
     babynames::babynames %>%
-      merge(., common.2014[keys], by=keys) %>%
+      merge(., common_2014[keys], by=keys) %>% #selects all babies of correct sex and name
       ggplot(aes(x=year, y=prop)) +
         geom_col() +
         facet_wrap(~name)
 
 ![](task07_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
-    #common girl data
+    #-------------------common girl data-------------------------#
     #------------------------------------------------------------#
     #26th - 29th most common girls in 1896, 1942, 2016
     common_girls <- babynames::babynames %>%
@@ -310,3 +307,6 @@ Babynames Code
     ## 6  1942     F Marilyn  9904 0.007123458
     ## 7  1942     F   Diane  9550 0.006868843
     ## 8  1942     F  Martha  9513 0.006842231
+
+Data wrangling task
+===================
