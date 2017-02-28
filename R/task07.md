@@ -200,9 +200,12 @@ In the glacier dataset:
     each country
 -   determine the latitude and longitude of the single largest glacier
 
-In the storm dataset: \* determine the average wind and its variance for
-each type of storm \* determine the number and names of hurricanes in
-1999
+In the storm dataset:
+
+-   determine the average wind and its variance for each type of storm
+-   determine the number and names of hurricanes in 1999
+
+<!-- -->
 
     #----------------------------------#
     #####task 7 data wrangling code#####

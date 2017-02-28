@@ -131,6 +131,7 @@ In the glacier dataset:
 * determine the latitude and longitude of the single largest glacier
 
 In the storm dataset:
+
 * determine the average wind and its variance for each type of storm
 * determine the number and names of hurricanes in 1999
 
