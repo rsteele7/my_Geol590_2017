@@ -2,7 +2,7 @@
 title: "R Notebook"
 output: md_document
 ---
-
+#NYC Flights Code
 ```{r}
 ###task 7 nycflights code###
 #loading appropriate libraries
@@ -56,6 +56,8 @@ leave_ewr <- nycflights13::flights %>%
   print()
 
 ```
+#Babynames Code
+
 ```{r}
 ###task 7 babynames code###
 library(babynames)
