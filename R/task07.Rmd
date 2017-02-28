@@ -8,42 +8,78 @@ output: md_document
 #loading appropriate libraries
 library(nycflights13)
 library(tidyverse)
-#plot to visualise outlier locations
+mf <- nycflights13::weather
+
+#plot to visualise outliers
 nycflights13::weather %>%
   ggplot(aes(hour, wind_speed)) +
     geom_point()
-#remove outlier > 1,000 units of wind speed, summarise with median wind speed
+
+#remove outlier > 1,000 units of wind speed and values in wind_dir = NA, summarise with median wind speed for each wind direction at each airport
 airport_wind <- nycflights13::weather %>%
-  filter(wind_speed<1000) %>%
-  group_by(origin, wind_dir) %>%
-  summarise(med_wind_spd = median(wind_speed))
-#create and plot tables of median wind speed/direction for every airport
-airpot_wind_tbls <- airport_wind %>%
+  filter(wind_speed<1000, !is.na(wind_dir)) %>%
+  group_by(wind_dir,origin) %>%
+  summarise(med_wind_spd = median(wind_speed)) %>%
+  .[order(.$origin),]
+
+#create and plot separate tables of median wind speed/direction for every airport
+airport_wind_tbls <- airport_wind %>%
   group_by(origin) %>%
   do(airport_wind=data.frame(.)) %>%
   select(airport_wind) %>%
   lapply(function(x) {(x)}) %>%
   print()
+
 #make graphs of median wind speed/direction for every airport
 airport_wind %>%
   ggplot(aes(x=wind_dir, y=med_wind_spd)) +
     geom_point() +
-    facet_wrap(~origin)
+    facet_wrap(~origin) +
+    xlab("Wind Direction") +
+    ylab("Wind Speed")
+
+#Make table with airline name and median distance flown from JFK; arrange in order of decreasing mean flight distance
+jfk_flight_distance <- nycflights13::flights %>%
+  left_join(airlines) %>%
+  filter(origin == "JFK") %>%
+  group_by(name) %>%
+  summarise(med_dist = median(distance), mean_dist = mean(distance)) %>%
+  .[order(.$mean_dist), ] %>%
+  print()
+
+#Make wide data frame displaying number of flights leaving Newark airport each month from each airline
+leave_ewr <- nycflights13::flights %>%
+  filter(origin == "EWR") %>%
+  group_by(carrier, month) %>%
+  summarise(flight_num = n()) %>%
+  spread(carrier, flight_num) %>%
+  print()
+
 ```
 ```{r}
 ###task 7 babynames code###
 library(babynames)
+
 #collect 10 most common male and female baby names in 2014 
 common.2014 <- babynames::babynames %>%
   filter(year==2014) %>%
   group_by(sex) %>%
   top_n(10, n) %>%
-  .[[3]]
-#select frequencies throughout the years of the given baby names
+  print()
+
+#select frequencies throughout the years of the given baby names, plot
+keys <- c("name", "sex")
 babynames::babynames %>%
-  filter(name %in% common.2014) %>%
+  merge(., common.2014[keys], by=keys) %>%
   ggplot(aes(x=year, y=prop)) +
     geom_col() +
     facet_wrap(~name)
+
+common_girls <- babynames::babynames %>%
+  filter(year==1896 | year==1942 | year==2016, sex=="F") %>%
+  group_by(year) %>%
+  top_n(29, prop)  %>%
+  top_n(-4, prop) %>%
+  print()
 ```
 
