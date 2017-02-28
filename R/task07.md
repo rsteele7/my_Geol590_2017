@@ -66,129 +66,11 @@ NYC Flights Code
       group_by(origin) %>%
       do(airport_wind=data.frame(.)) %>%
       select(airport_wind) %>%
-      lapply(function(x) {(x)}) %>%
-      print()
+      lapply(function(x) {(x)})
+    ewr_wind <- airport_wind_tbls$airport_wind[[1]]
+    jfk_wind <- airport_wind_tbls$airport_wind[[2]]
+    lga_wind <- airport_wind_tbls$airport_wind[[3]]
 
-    ## $airport_wind
-    ## $airport_wind[[1]]
-    ##    wind_dir origin med_wind_spd
-    ## 1         0    EWR      0.00000
-    ## 2        10    EWR      9.20624
-    ## 3        20    EWR      9.20624
-    ## 4        30    EWR      9.20624
-    ## 5        40    EWR     10.35702
-    ## 6        50    EWR      8.05546
-    ## 7        60    EWR      8.05546
-    ## 8        70    EWR      6.90468
-    ## 9        80    EWR      6.90468
-    ## 10       90    EWR      6.32929
-    ## 11      100    EWR      6.90468
-    ## 12      110    EWR      6.90468
-    ## 13      120    EWR      6.90468
-    ## 14      130    EWR      8.05546
-    ## 15      140    EWR      8.05546
-    ## 16      150    EWR      6.90468
-    ## 17      160    EWR      6.90468
-    ## 18      170    EWR      6.90468
-    ## 19      180    EWR      6.90468
-    ## 20      190    EWR      8.05546
-    ## 21      200    EWR      8.05546
-    ## 22      210    EWR      6.90468
-    ## 23      220    EWR      8.05546
-    ## 24      230    EWR      9.20624
-    ## 25      240    EWR      9.20624
-    ## 26      250    EWR      9.78163
-    ## 27      260    EWR     10.35702
-    ## 28      270    EWR     10.35702
-    ## 29      280    EWR     10.35702
-    ## 30      290    EWR     12.65858
-    ## 31      300    EWR     12.65858
-    ## 32      310    EWR     11.50780
-    ## 33      320    EWR     12.65858
-    ## 34      330    EWR     12.65858
-    ## 35      340    EWR     11.50780
-    ## 36      350    EWR     10.35702
-    ## 37      360    EWR      9.20624
-    ## 
-    ## $airport_wind[[2]]
-    ##    wind_dir origin med_wind_spd
-    ## 1         0    JFK      0.00000
-    ## 2        10    JFK      8.05546
-    ## 3        20    JFK      9.20624
-    ## 4        30    JFK      9.20624
-    ## 5        40    JFK      9.20624
-    ## 6        50    JFK      8.05546
-    ## 7        60    JFK      7.48007
-    ## 8        70    JFK      8.05546
-    ## 9        80    JFK      8.63085
-    ## 10       90    JFK      9.20624
-    ## 11      100    JFK      9.20624
-    ## 12      110    JFK     10.35702
-    ## 13      120    JFK      9.20624
-    ## 14      130    JFK      9.20624
-    ## 15      140    JFK      8.05546
-    ## 16      150    JFK      9.20624
-    ## 17      160    JFK     10.35702
-    ## 18      170    JFK     11.50780
-    ## 19      180    JFK     11.50780
-    ## 20      190    JFK     11.50780
-    ## 21      200    JFK      9.20624
-    ## 22      210    JFK      9.20624
-    ## 23      220    JFK      9.20624
-    ## 24      230    JFK     10.35702
-    ## 25      240    JFK     10.35702
-    ## 26      250    JFK     10.35702
-    ## 27      260    JFK     12.65858
-    ## 28      270    JFK     13.80936
-    ## 29      280    JFK     12.65858
-    ## 30      290    JFK     14.96014
-    ## 31      300    JFK     14.96014
-    ## 32      310    JFK     14.96014
-    ## 33      320    JFK     13.80936
-    ## 34      330    JFK     14.96014
-    ## 35      340    JFK     12.65858
-    ## 36      350    JFK     11.50780
-    ## 37      360    JFK     10.35702
-    ## 
-    ## $airport_wind[[3]]
-    ##    wind_dir origin med_wind_spd
-    ## 1         0    LGA      0.00000
-    ## 2        10    LGA      9.20624
-    ## 3        20    LGA      8.05546
-    ## 4        30    LGA      9.20624
-    ## 5        40    LGA      8.63085
-    ## 6        50    LGA      9.20624
-    ## 7        60    LGA      9.20624
-    ## 8        70    LGA      8.05546
-    ## 9        80    LGA      8.05546
-    ## 10       90    LGA      6.90468
-    ## 11      100    LGA      6.90468
-    ## 12      110    LGA      8.63085
-    ## 13      120    LGA      9.20624
-    ## 14      130    LGA      8.05546
-    ## 15      140    LGA      8.05546
-    ## 16      150    LGA      8.05546
-    ## 17      160    LGA      9.20624
-    ## 18      170    LGA     10.35702
-    ## 19      180    LGA      9.20624
-    ## 20      190    LGA      8.05546
-    ## 21      200    LGA      8.05546
-    ## 22      210    LGA      9.20624
-    ## 23      220    LGA      9.20624
-    ## 24      230    LGA      9.20624
-    ## 25      240    LGA      9.20624
-    ## 26      250    LGA     10.35702
-    ## 27      260    LGA     12.65858
-    ## 28      270    LGA     13.80936
-    ## 29      280    LGA     11.50780
-    ## 30      290    LGA     13.80936
-    ## 31      300    LGA     12.65858
-    ## 32      310    LGA     12.65858
-    ## 33      320    LGA     12.65858
-    ## 34      330    LGA     11.50780
-    ## 35      340    LGA     10.35702
-    ## 36      350    LGA     10.35702
-    ## 37      360    LGA     10.35702
 
     #make graphs of median wind speed/direction for every airport
     airport_wind %>%
@@ -261,8 +143,6 @@ Babynames Code
     ######task 7 babynames code#######
     #--------------------------------#
     library(babynames)
-    library(tidyverse)
-
 
 
     #-Collecting and plotting most common baby names in 2014 across the years-#
@@ -308,5 +188,98 @@ Babynames Code
     ## 7  1942     F   Diane  9550 0.006868843
     ## 8  1942     F  Martha  9513 0.006842231
 
-Data wrangling task
+Data Wrangling Code
 ===================
+
+Complete the following tasks using the package nasaweather and data
+wrangling methods.
+
+In the glacier dataset:
+
+-   determine the id's and names of the largest (by area) glaciers for
+    each country
+-   determine the latitude and longitude of the single largest glacier
+
+In the storm dataset: \* determine the average wind and its variance for
+each type of storm \* determine the number and names of hurricanes in
+1999
+
+    #----------------------------------#
+    #####task 7 data wrangling code#####
+    #----------------------------------#
+
+    #load appropriate libraries
+    library(nasaweather)
+
+
+
+    #----------------------glacier data---------------------------#
+    #-------------------------------------------------------------#
+
+
+    #determining largest glaciers in each country
+    country_largest_glaciers <- nasaweather::glaciers %>%
+      group_by(country) %>%
+      top_n(1, area) %>%
+      select(id, name, area, country) %>%
+      print()
+
+    ## Source: local data frame [5 x 4]
+    ## Groups: country [5]
+    ## 
+    ##             id          name  area country
+    ##          <chr>         <chr> <chr>   <chr>
+    ## 1  CO1A0104005 SIMONS GRANDE  2.84      CO
+    ## 2  EC1D3031002            NA     3      EC
+    ## 3 PE1P005YQCB7    TULLPARAJ0  9.81      PE
+    ## 4 RB1D22126456            NA   9.2      RB
+    ## 5  VZ1A0014PH8      HUMBOLDT  1.98      VZ
+
+    #latitude and longitude of largest glacier in the dataset
+    largest_glacier <- nasaweather::glaciers %>%
+      top_n(1, area) %>%
+      select(name, lat, long, country) %>%
+      print()
+
+    ## # A tibble: 1 × 4
+    ##         name       lat    long country
+    ##        <chr>     <dbl>   <dbl>   <chr>
+    ## 1 TULLPARAJ0 -9.406667 -77.325      PE
+
+    #-----------------------------storm data--------------------------------#
+    #-----------------------------------------------------------------------#
+
+
+    #determining average wind and variance for each type of storm
+    storm_wind_spd <- nasaweather::storms %>%
+      group_by(type) %>%
+      summarise(av_wind = mean(wind), var_wind = var(wind)) %>%
+      print()
+
+    ## # A tibble: 4 × 3
+    ##                  type  av_wind  var_wind
+    ##                 <chr>    <dbl>     <dbl>
+    ## 1       Extratropical 40.06068 175.48293
+    ## 2           Hurricane 84.65960 353.09629
+    ## 3 Tropical Depression 27.35867  12.39454
+    ## 4      Tropical Storm 47.32181 123.03578
+
+    #determining number of hurricanes in 1999
+    hurricane_1999 <- nasaweather::storms %>%
+      filter(type == "Hurricane", year == 1999) %>%
+      select(name) %>%
+      group_by(name) %>%
+      summarise() %>%
+      print()
+
+    ## # A tibble: 8 × 1
+    ##     name
+    ##    <chr>
+    ## 1   Bret
+    ## 2  Cindy
+    ## 3 Dennis
+    ## 4  Floyd
+    ## 5   Gert
+    ## 6  Irene
+    ## 7   Jose
+    ## 8  Lenny

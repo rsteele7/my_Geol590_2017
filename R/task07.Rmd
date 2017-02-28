@@ -42,8 +42,10 @@ airport_wind_tbls <- airport_wind %>%
   group_by(origin) %>%
   do(airport_wind=data.frame(.)) %>%
   select(airport_wind) %>%
-  lapply(function(x) {(x)}) %>%
-  print()
+  lapply(function(x) {(x)})
+ewr_wind <- airport_wind_tbls$airport_wind[[1]]
+jfk_wind <- airport_wind_tbls$airport_wind[[2]]
+lga_wind <- airport_wind_tbls$airport_wind[[3]]
 
 
 #make graphs of median wind speed/direction for every airport
@@ -89,20 +91,19 @@ leave_ewr <- nycflights13::flights %>%
 library(babynames)
 
 
-
 #-Collecting and plotting most common baby names in 2014 across the years-#
 #-------------------------------------------------------------------------#
 #collect 10 most common male and female baby names in 2014 
-common.2014 <- babynames::babynames %>%
+common_2014 <- babynames::babynames %>%
   filter(year==2014) %>%
   group_by(sex) %>%
-  top_n(10, n) %>%
+  top_n(10, prop)
 
 
 #select frequencies throughout the years of the given baby names, plot
 keys <- c("name", "sex")
 babynames::babynames %>%
-  merge(., common.2014[keys], by=keys) %>% #selects all babies of correct sex and name
+  merge(., common_2014[keys], by=keys) %>% #selects all babies of correct sex and name
   ggplot(aes(x=year, y=prop)) +
     geom_col() +
     facet_wrap(~name)
@@ -120,11 +121,67 @@ common_girls <- babynames::babynames %>%
   print()
 ```
 
-#Data wrangling task
+#Data Wrangling Code
+
+Complete the following tasks using the package nasaweather and data wrangling methods.
+
+In the glacier dataset:
+
+* determine the id's and names of the largest (by area) glaciers for each country
+* determine the latitude and longitude of the single largest glacier
+
+In the storm dataset:
+* determine the average wind and its variance for each type of storm
+* determine the number and names of hurricanes in 1999
 
 
 
 ```{r}
+#----------------------------------#
+#####task 7 data wrangling code#####
+#----------------------------------#
 
+#load appropriate libraries
+library(nasaweather)
+
+
+
+#----------------------glacier data---------------------------#
+#-------------------------------------------------------------#
+
+
+#determining largest glaciers in each country
+country_largest_glaciers <- nasaweather::glaciers %>%
+  group_by(country) %>%
+  top_n(1, area) %>%
+  select(id, name, area, country) %>%
+  print()
+
+
+#latitude and longitude of largest glacier in the dataset
+largest_glacier <- nasaweather::glaciers %>%
+  top_n(1, area) %>%
+  select(name, lat, long, country) %>%
+  print()
+
+
+#-----------------------------storm data--------------------------------#
+#-----------------------------------------------------------------------#
+
+
+#determining average wind and variance for each type of storm
+storm_wind_spd <- nasaweather::storms %>%
+  group_by(type) %>%
+  summarise(av_wind = mean(wind), var_wind = var(wind)) %>%
+  print()
+
+
+#determining number of hurricanes in 1999
+hurricane_1999 <- nasaweather::storms %>%
+  filter(type == "Hurricane", year == 1999) %>%
+  select(name) %>%
+  group_by(name) %>%
+  summarise() %>%
+  print()
 ```
 
