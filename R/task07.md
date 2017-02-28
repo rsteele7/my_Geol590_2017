@@ -20,6 +20,7 @@ NYC Flights Code
 
     mf <- nycflights13::weather
 
+
     #plot to visualise outliers
     nycflights13::weather %>%
       ggplot(aes(hour, wind_speed)) +
@@ -35,6 +36,7 @@ NYC Flights Code
       group_by(wind_dir,origin) %>%
       summarise(med_wind_spd = median(wind_speed)) %>%
       .[order(.$origin),]
+
 
     #create and plot separate tables of median wind speed/direction for every airport
     airport_wind_tbls <- airport_wind %>%
@@ -231,6 +233,7 @@ Babynames Code
     ###task 7 babynames code###
     library(babynames)
 
+
     #collect 10 most common male and female baby names in 2014 
     common.2014 <- babynames::babynames %>%
       filter(year==2014) %>%
@@ -274,6 +277,7 @@ Babynames Code
 
 ![](task07_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
+    #26th - 29th most common girls in 1896, 1942, 2016
     common_girls <- babynames::babynames %>%
       filter(year==1896 | year==1942 | year==2016, sex=="F") %>%
       group_by(year) %>%
