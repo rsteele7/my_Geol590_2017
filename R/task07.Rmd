@@ -6,12 +6,14 @@ output: md_document
 ```{r}
 #---------------------------------#
 ######task 7 nycflights code#######
+#---------------------------------#
 #loading appropriate libraries
 library(nycflights13)
 library(tidyverse)
 
 
-#Prepare weather data for placement in tables, graph
+
+#-------------Prepare weather data for placement in tables, graph---------------#
 #-------------------------------------------------------------------------------#
 #plot wind speed to visualise outliers
 nycflights13::weather %>%
@@ -25,10 +27,15 @@ airport_wind <- nycflights13::weather %>%
   filter(wind_speed<1000, !is.na(wind_dir)) %>%
   group_by(wind_dir,origin) %>%
   summarise(med_wind_spd = median(wind_speed)) %>%
-  .[order(.$origin),]
+  .[order(.$origin), ]
 
 
-#Put weather data in tables and graphs
+#Determine directions with highest median speeds at each airport
+print(top_n(group_by(airport_wind, origin), 1, med_wind_spd))
+
+
+
+#---------------------Put weather data in tables and graphs-----------------------#
 #---------------------------------------------------------------------------------#
 #create separate tables of median wind speed/direction for every airport
 airport_wind_tbls <- airport_wind %>%
@@ -48,7 +55,8 @@ airport_wind %>%
     ylab("Wind Speed")
 
 
-#JFK distance data
+
+#---------------------------------------JFK distance data---------------------------------------------------#
 #-----------------------------------------------------------------------------------------------------------#
 #Make table with airline name and median distance flown from JFK; arrange in order of decreasing mean flight distance
 jfk_flight_distance <- nycflights13::flights %>%
@@ -60,7 +68,8 @@ jfk_flight_distance <- nycflights13::flights %>%
   print()
 
 
-#EWR flight number data
+
+#--------------------------------------EWR flight number data---------------------------------------------#
 #---------------------------------------------------------------------------------------------------------#
 #Make wide data frame displaying number of flights leaving Newark airport each month from each airline
 leave_ewr <- nycflights13::flights %>%
@@ -76,29 +85,31 @@ leave_ewr <- nycflights13::flights %>%
 ```{r}
 #--------------------------------#
 ######task 7 babynames code#######
+#--------------------------------#
 library(babynames)
 
 
-#Collecting and plotting most common baby names in 2014 across the years
-#------------------------------------------------------------------------#
+
+#-Collecting and plotting most common baby names in 2014 across the years-#
+#-------------------------------------------------------------------------#
 #collect 10 most common male and female baby names in 2014 
 common.2014 <- babynames::babynames %>%
   filter(year==2014) %>%
   group_by(sex) %>%
   top_n(10, n) %>%
-  print()
 
 
 #select frequencies throughout the years of the given baby names, plot
 keys <- c("name", "sex")
 babynames::babynames %>%
-  merge(., common.2014[keys], by=keys) %>%
+  merge(., common.2014[keys], by=keys) %>% #selects all babies of correct sex and name
   ggplot(aes(x=year, y=prop)) +
     geom_col() +
     facet_wrap(~name)
 
 
-#common girl data
+
+#-------------------common girl data-------------------------#
 #------------------------------------------------------------#
 #26th - 29th most common girls in 1896, 1942, 2016
 common_girls <- babynames::babynames %>%
@@ -107,5 +118,13 @@ common_girls <- babynames::babynames %>%
   top_n(29, prop)  %>%
   top_n(-4, prop) %>%
   print()
+```
+
+#Data wrangling task
+
+
+
+```{r}
+
 ```
 
