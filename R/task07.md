@@ -1,3 +1,6 @@
+NYC Flights Code
+================
+
     ###task 7 nycflights code###
     #loading appropriate libraries
     library(nycflights13)
@@ -221,6 +224,9 @@
     ## 11    11   153   277    52   544   418  3392    94     4  3776   346   161
     ## 12    12   165   294    54   637   431  3268    73    NA  3934   371   175
     ## # ... with 1 more variables: WN <int>
+
+Babynames Code
+==============
 
     ###task 7 babynames code###
     library(babynames)
