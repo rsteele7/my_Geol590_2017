@@ -5,13 +5,13 @@ output: md_document
 
 #Task Eight
 
-```{r}
+```{r chunk_name, eval=TRUE}
 ############################################task 8 code ##############################################
 library(tidyverse)
 library(microbenchmark)
 
 #Function to add values in columns
-column_adder <- function(data_frame, col.one, col.two, new.col) {
+column_adder <- function(data_frame, col.one, col.two, sum.col) {
   
   if(class(data_frame) != "data.frame") {
     warning("Data frame not supplied") #warning for if data_frame argument is not a data frame
@@ -21,14 +21,24 @@ column_adder <- function(data_frame, col.one, col.two, new.col) {
     warning("One of your columns in not in the supplied data frame") #warning for if either supplied columns to add are not actually columns in given data frame
   }
   
-  tryCatch(data_frame$new.col <- (data_frame[, col.one] + data_frame[, col.two]),  #runs function and returns warnings if column values are non-numeric
+  tryCatch(data_frame$sum.col <- (data_frame[, col.one] + data_frame[, col.two]),  #runs function and returns warnings if column values are non-numeric
            warning=function(w){
-             message("One or more column values is non-numeric.")
+             message("One or more values to add is non-numeric.")
              return(NA)
   })
   
   return(data_frame)
 }
+
+#Code lines to generate warnings and errors; using mtcars as an example
+
+my_mtcars <- mtcars #so I can edit this to my liking without changing mtcars itself
+my_mtcars <- column_adder(mtcars, "mpg", "cyl", sum) 
+my_mtcars$names <- rownames(my_mtcars)
+n_mtcars <- column_adder(my_mtcars, "mpg", "cyl", sum)
+#n_mtcars <- column_adder(my_mtcars, "names", "mpg", sum) ***throws an error as "names" has no numeric values
+new.vec <- c(1,3,5,7,9)
+#add.vec.columns <- column_adder(new.vec, "mpg", "cyl", sum) ***throws an error as a data frame is not supplied, and correct columns not present
 
 #adder using for loop
 adder <- function(my.vec) {
