@@ -40,7 +40,7 @@ n_mtcars <- column_adder(my_mtcars, "mpg", "cyl", sum)
 new.vec <- c(1,3,5,7,9)
 #add.vec.columns <- column_adder(new.vec, "mpg", "cyl", sum) ***throws an error as a data frame is not supplied, and correct columns not present
 
-#adder using for loop
+###################################adder using for loop#################################################
 adder <- function(my.vec) {
   sum <- 0
   for(i in my.vec) {

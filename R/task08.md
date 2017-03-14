@@ -50,7 +50,7 @@ Task Eight
     new.vec <- c(1,3,5,7,9)
     #add.vec.columns <- column_adder(new.vec, "mpg", "cyl", sum) ***throws an error as a data frame is not supplied, and correct columns not present
 
-    #adder using for loop
+    ###################################adder using for loop#################################################
     adder <- function(my.vec) {
       sum <- 0
       for(i in my.vec) {
@@ -74,9 +74,9 @@ Task Eight
     )
 
     ## Unit: microseconds
-    ##             expr      min      lq       mean   median        uq      max
-    ##  adder(test.vec) 3237.003 3274.76 3585.68393 3331.209 3503.9530 5252.153
-    ##    sum(test.vec)    6.419    6.42    7.50309    6.797    8.1185   13.216
+    ##             expr      min       lq       mean    median       uq      max
+    ##  adder(test.vec) 3268.342 3430.325 3826.97330 3585.1335 4199.834 6111.149
+    ##    sum(test.vec)    6.042    6.420   10.03294    9.6285   11.705   44.933
     ##  neval
     ##    100
     ##    100
