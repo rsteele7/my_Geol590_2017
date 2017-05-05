@@ -74,9 +74,9 @@ Task Eight
     )
 
     ## Unit: microseconds
-    ##             expr      min       lq       mean    median       uq      max
-    ##  adder(test.vec) 3268.342 3430.325 3826.97330 3585.1335 4199.834 6111.149
-    ##    sum(test.vec)    6.042    6.420   10.03294    9.6285   11.705   44.933
+    ##             expr      min       lq       mean    median       uq       max
+    ##  adder(test.vec) 3256.258 3342.913 5139.40906 4076.3640 6105.673 13213.822
+    ##    sum(test.vec)    6.419    7.552   12.68357   10.9505   14.160    52.484
     ##  neval
     ##    100
     ##    100

@@ -2,7 +2,7 @@
 title: "R Notebook"
 output: md_document
 ---
-#NYC Flights Code
+# NYC Flights Code
 ```{r}
 #---------------------------------#
 ######task 7 nycflights code#######
@@ -82,7 +82,7 @@ leave_ewr <- nycflights13::flights %>%
   print()
 
 ```
-#Babynames Code
+# Babynames Code
 
 ```{r}
 #--------------------------------#
@@ -121,7 +121,7 @@ common_girls <- babynames::babynames %>%
   print()
 ```
 
-#Data Wrangling Code
+# Data Wrangling Code
 
 Complete the following tasks using the package nasaweather and data wrangling methods.
 
